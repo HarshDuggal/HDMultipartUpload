@@ -19,22 +19,34 @@ Step 4:
  
  
  
- --Usage Code:---
+ Usage Code
+ ============
+ Import by draging the
+ HDMultiPartImageUpload.h and HDMultiPartImageUpload.m
+ to your project file
  
-////////////////////////////////////////////////---
+ Add the following code to your class and start uploading.
 
+``` 
+#import HDMultiPartImageUpload.h 
+
+@implementation MyDemoVC
+@property(nonatomic,strong) NSString * filePath
+@end 
+
+@implementation MyDemoVC 
+ 
 -(void)demoupload 
 {
-
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     
     NSString *documentsDirectory = [paths objectAtIndex:0]; 
     
-    documentsDirectory = [NSString stringWithFormat:@"%@/ProfilePic/",documentsDirectory]; 
+    documentsDirectory = [NSString stringWithFormat:@"%@/ProfilePic/",documentsDirectory]; // navigate the image dicrectory
     
     NSFileManager*fmanager = [NSFileManager defaultManager]; 
     
-    if(![fmanager fileExistsAtPath:documentsDirectory]) 
+    if(![fmanager fileExistsAtPath:documentsDirectory]) // create file path if not there
     {
         [fmanager createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];
         
@@ -46,7 +58,7 @@ Step 4:
     
     [postParam addEntriesFromDictionary:[self demoPostDict]];
     
-    HDMultiPartImageUpload *obj = [[HDMultiPartImageUpload alloc]init];
+    HDMultiPartImageUpload *obj = [[HDMultiPartImageUpload alloc]init]; //intilaize the object and set all the required parameters.
     
     obj.oneChunkSize = 1024 *10;
     
@@ -61,7 +73,8 @@ Step 4:
     [obj startUploadImagesToServer];
 }
 
--(NSMutableDictionary*)demoPostDict
+-(NSMutableDictionary*)demoPostDict // Create a dictionary of the parameters needed to be passed at server
+
 {
     NSMutableDictionary *param = [[NSMutableDictionary alloc]init];
     
@@ -123,4 +136,10 @@ Step 4:
     return param;
     
 }
-///////////////////////////////////////////////////////////------------
+```
+
+
+
+License
+=============
+AFNetworking is available under the MIT license. See the LICENSE file for more info.
